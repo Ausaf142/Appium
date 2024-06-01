@@ -52,6 +52,7 @@ public void scroll() throws MalformedURLException, InterruptedException {
       driver.findElement(By.id("io.appium.android.apis:id/monitored_switch")).click();
       Thread.sleep(2000);
       System.out.println("Operation Completed");
+     
       driver.quit();
       
       

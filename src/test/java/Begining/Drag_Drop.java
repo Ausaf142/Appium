@@ -1,4 +1,4 @@
-package Begining;
+ package Begining;
 
 import java.lang.constant.DirectMethodHandleDesc.Kind;
 import java.net.MalformedURLException;
@@ -11,16 +11,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
-import com.sun.jna.Pointer;
-
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.touch.LongPressOptions;
+
 
 public class Drag_Drop {
 public static void main(String[] args) throws MalformedURLException {
@@ -36,34 +32,53 @@ public static void main(String[] args) throws MalformedURLException {
 	AndroidDriver driver =new AndroidDriver(url, capabilities);
 	   
 	 System.out.println("Application started");
+	 
      //click on view button
     driver.findElements(By.id("android:id/text1")).get(11).click();
+    
     //click drag & drop
     driver.findElements(By.id("android:id/text1")).get(7).click();
-          WebElement source = driver.findElement(By.id("io.appium.android.apis:id/drag_dot_1"));
-          WebElement target = driver.findElement(By.id("io.appium.android.apis:id/drag_dot_2"));
+    
+    //Target Element
+    WebElement source = driver.findElement(By.id("io.appium.android.apis:id/drag_dot_1"));
+   
+    //Target Source
+    WebElement target = driver.findElement(By.id("io.appium.android.apis:id/drag_dot_2"));
           
-    //By Touch action(support ni kr rha hai qk depricated hai ye ab
-    // TouchAction action = new TouchAction(driver);  
-    //BY W3C
-         Point middilX = getCentre(source);
-         Point middilY = getCentre(target);
+    /*By Touch action(support ni kr rha hai qk depricated hai ye ab
+       TouchAction action = new TouchAction(driver);  */
+    
+    //BY W3C action
+         Point centreX = getCentre(source);
+         Point centreY = getCentre(target);
          
-         //seq of Action
+         //Pointer input class for performing action sequence
          PointerInput finger1= new PointerInput(PointerInput.Kind.TOUCH, "finger1");
          
+         //seq of Action, list of action that will perform
          Sequence seq = new Sequence(finger1,1)
-        		 .addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), middilX))
+        		 //move finger to the starting position
+        		 .addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centreX))
+        		
+        		 //finger coming down to cantct with screen
         		 .addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+        		
+        		 //pause for a while
         		 .addAction(new Pause(finger1, Duration.ofMillis(588)))
-        		 .addAction(finger1.createPointerMove(Duration.ofMillis(588), PointerInput.Origin.viewport(), middilY))
+        		
+        		 //move finger to the end position
+        		 .addAction(finger1.createPointerMove(Duration.ofMillis(588), PointerInput.Origin.viewport(), centreY))
+        		
+        		 //move the finger Up
         		 .addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
          	driver.perform(Arrays.asList(seq));
+         	 System.out.println("Application close");
          
 	
 	
 }
+//method for centre location/coordinates
 public static Point getCentre (WebElement ele){
 	Point loc = ele.getLocation();  // point coordinates X,Y 
 	Dimension size = ele.getSize(); //width and height
