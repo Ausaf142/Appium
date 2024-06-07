@@ -8,12 +8,6 @@ package Begining;
 	import org.openqa.selenium.By;
 	import org.openqa.selenium.remote.DesiredCapabilities;
 
-
-
-
-
-
-
 	public class Apk_launching {
 	    public static void main(String[] args) throws Exception {
 	        DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -22,15 +16,13 @@ package Begining;
 	        capabilities.setCapability("automationName", "uiautomator2");
 	        capabilities.setCapability("platformVersion", "9");
 //	        capabilities.setCapability("app", "C:\\Users\\Dell\\Downloads\\appfkm.apk");
-	        System.out.println("Application started");
+	      
 	        capabilities.setCapability("appPackage", "com.freekaamaalindia");
 	        capabilities.setCapability("appActivity", "com.freekaamaalindia.MainActivity");
 	        
 //	        capabilities.setCapability("appPackage", "com.cashora.india");
 //	        capabilities.setCapability("appActivity", "com.cashora.india.MainActivity");
 	        
-	        
-	        System.out.println("Application started");
 	        		
 	        	URL url = URI.create("http://127.0.0.1:4723").toURL();
 	        	System.out.println("Application started");
